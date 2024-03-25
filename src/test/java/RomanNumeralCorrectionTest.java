@@ -1,32 +1,39 @@
-
-
 import org.example.RomanNumeralCorrection;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class RomanNumeralCorrectionTest {
 
     @Test
     public void testToRoman() {
-        // Test with various input values
+        // Test de valeurs valides
+        assertEquals("I", RomanNumeralCorrection.toRoman(1));
+        assertEquals("III", RomanNumeralCorrection.toRoman(3));
+        assertEquals("IV", RomanNumeralCorrection.toRoman(4));
+        assertEquals("IX", RomanNumeralCorrection.toRoman(9));
+        assertEquals("X", RomanNumeralCorrection.toRoman(10));
+        assertEquals("XIII", RomanNumeralCorrection.toRoman(13));
+        assertEquals("XL", RomanNumeralCorrection.toRoman(40));
+        assertEquals("L", RomanNumeralCorrection.toRoman(50));
+        assertEquals("XC", RomanNumeralCorrection.toRoman(90));
+        assertEquals("C", RomanNumeralCorrection.toRoman(100));
+        assertEquals("CD", RomanNumeralCorrection.toRoman(400));
+        assertEquals("D", RomanNumeralCorrection.toRoman(500));
+        assertEquals("CM", RomanNumeralCorrection.toRoman(900));
+        assertEquals("M", RomanNumeralCorrection.toRoman(1000));
+        assertEquals("MMMCMXCIX", RomanNumeralCorrection.toRoman(3999));
 
-        assertEquals("I", RomanNumeralCorrection.toRoman(1));  // 1 should be converted to "I"
-        assertEquals("III", RomanNumeralCorrection.toRoman(3));  // 3 should be converted to "III"
-        assertEquals("IV", RomanNumeralCorrection.toRoman(4));  // 4 should be converted to "IV"
-        assertEquals("IX", RomanNumeralCorrection.toRoman(9));  // 9 should be converted to "IX"
-        assertEquals("X", RomanNumeralCorrection.toRoman(10));  // 10 should be converted to "X"
-        assertEquals("XL", RomanNumeralCorrection.toRoman(40));  // 40 should be converted to "XL"
-        assertEquals("XC", RomanNumeralCorrection.toRoman(90));  // 90 should be converted to "XC"
-        assertEquals("C", RomanNumeralCorrection.toRoman(100));  // 100 should be converted to "C"
-        assertEquals("CD", RomanNumeralCorrection.toRoman(400));  // 400 should be converted to "CD"
-        assertEquals("D", RomanNumeralCorrection.toRoman(500));  // 500 should be converted to "D"
-        assertEquals("CM", RomanNumeralCorrection.toRoman(900));  // 900 should be converted to "CM"
-        assertEquals("M", RomanNumeralCorrection.toRoman(1000));  // 1000 should be converted to "M"
+        // Test de valeurs invalides (doit lever une exception)
+        try {
+            RomanNumeralCorrection.toRoman(0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("n must be between 1 and 3999", e.getMessage());
+        }
 
-        // Test with maximum input value
-        assertEquals("MMMCMXCIX", RomanNumeralCorrection.toRoman(3999));  // 3999 should be converted to "MMMCMXCIX"
-        assertEquals("M", RomanNumeralCorrection.toRoman(4000));  // 1000 should be converted to "M"
-
+        try {
+            RomanNumeralCorrection.toRoman(4000);
+        } catch (IllegalArgumentException e) {
+            assertEquals("n must be between 1 and 3999", e.getMessage());
+        }
     }
 }
